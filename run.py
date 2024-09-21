@@ -42,7 +42,18 @@ def execute_connect():
             EC.element_to_be_clickable((By.ID, "connectToInternet"))  # Use the correct ID or selector
         ).click()  # Click the login button
     print("Logged in or refreshed.")
+    driver.quit
 
 
 
-    
+while (True):
+    if(check_internet_connection() == False): 
+        try:
+            execute_connect()
+        except:
+            print("FAILED")
+
+    else:
+        print("ALREADY CONNECTED, SLEEPING")
+        time.sleep(5)
+        
