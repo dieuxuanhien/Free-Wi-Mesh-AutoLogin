@@ -5,11 +5,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import urllib.request
+import os
+
+
+# start edge driver
+path = os.path.dirname(__file__)
+path+= "\msedgedriver.exe"
+
+print(path)
+
+while( True):
+    try :
+        os.startfile(path)
+        break
+    except:
+        print("Failed")
 
 
 # Set up the WebDriver
 edge_options = edgeOptions()
-# A little different from Chrome cause we don't need two lines before 'headless' and 'disable-gpu'
 edge_options.add_argument("--headless=new")
 edge_options.add_argument("--start-maximized")
 driver = webdriver.Edge(options = edge_options)
