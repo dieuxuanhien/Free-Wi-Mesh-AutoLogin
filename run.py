@@ -3,30 +3,23 @@ from selenium.webdriver.edge.options import Options as edgeOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.edge.service import Service
 import time
 import urllib.request
 import os
 
 
 # start edge driver
-path = os.path.dirname(__file__)
-path+= "\msedgedriver.exe"
-
-print(path)
-
-while( True):
-    try :
-        os.startfile(path)
-        break
-    except:
-        print("Failed")
-
+edge_driver_path = os.path.dirname(__file__)
+edge_driver_path += "\msedgedriver.exe"
+edge_driver_service = Service(edge_driver_path)
+print(edge_driver_path)
 
 # Set up the WebDriver
 edge_options = edgeOptions()
 edge_options.add_argument("--headless=new")
 edge_options.add_argument("--start-maximized")
-driver = webdriver.Edge(options = edge_options)
+driver = webdriver.Edge(service = edge_driver_service,options = edge_options)
 
 
 
@@ -69,5 +62,5 @@ while (True):
 
     else:
         print("ALREADY CONNECTED, SLEEPING")
-        time.sleep(5)
+        time.sleep(3)
         
