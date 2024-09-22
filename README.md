@@ -7,5 +7,7 @@
 </h1>
 
 <h2>
-     <p style="color:red;"> Run <strong> START.BAT </strong> with admin</p>
+     <p> Run <strong> installrequiredlibs.bat </strong> with admin</p>
+     <p> Run <strong> START.BAT </strong> with admin</p>
+     
 </h2>
