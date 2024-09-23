@@ -64,5 +64,5 @@ while (True):
 
     else:
         print("ALREADY CONNECTED, SLEEPING")
-        time.sleep(3)
+        time.sleep(2)
         
