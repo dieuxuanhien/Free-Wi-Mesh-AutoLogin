@@ -19,8 +19,6 @@ print(edge_driver_path)
 edge_options = edgeOptions()
 edge_options.add_argument("--headless=new")
 edge_options.add_argument("--start-maximized")
-driver = webdriver.Edge(service = edge_driver_service,options = edge_options)
-
 
 
 def check_internet_connection():
@@ -32,6 +30,8 @@ def check_internet_connection():
 
 
 def execute_connect():
+    driver= webdriver.Edge(service = edge_driver_service,options = edge_options)
+  
     driver.get("http:/192.168.1.1")  # Replace with the actual login URL
 
     # Wait for the page to load (you may need to adjust this)
@@ -49,7 +49,9 @@ def execute_connect():
             EC.element_to_be_clickable((By.ID, "connectToInternet"))  # Use the correct ID or selector
         ).click()  # Click the login button
     print("Logged in or refreshed.")
-    driver.quit
+    time.sleep(10)
+    driver.quit()
+    
 
 
 
