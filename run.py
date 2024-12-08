@@ -7,13 +7,12 @@ from selenium.webdriver.edge.service import Service
 import time
 import urllib.request
 import os
-
+from webdriver_manager.microsoft import EdgeChromiumDriverManager  # Import WebDriver Manager
 
 # start edge driver
-edge_driver_path = os.path.dirname(__file__)
-edge_driver_path += "\msedgedriver.exe"
-edge_driver_service = Service(edge_driver_path)
-print(edge_driver_path)
+
+edge_driver_service = Service(EdgeChromiumDriverManager().install())
+
 
 # Set up the WebDriver
 edge_options = edgeOptions()
