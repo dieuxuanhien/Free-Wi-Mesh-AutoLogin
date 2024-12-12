@@ -11,7 +11,7 @@ import os
 
 # start edge driver
 edge_driver_path = os.path.dirname(__file__)
-edge_driver_path += "\msedgedriver.exe"
+edge_driver_path += "\\msedgedriver.exe"
 edge_driver_service = Service(edge_driver_path)
 print(edge_driver_path)
 
@@ -19,6 +19,7 @@ print(edge_driver_path)
 edge_options = edgeOptions()
 edge_options.add_argument("--headless=new")
 edge_options.add_argument("--start-maximized")
+edge_options.add_argument("--disable-gpu")
 
 
 def check_internet_connection():
@@ -30,27 +31,35 @@ def check_internet_connection():
 
 
 def execute_connect():
-    driver= webdriver.Edge(service = edge_driver_service,options = edge_options)
-  
-    driver.get("http:/192.168.1.1")  # Replace with the actual login URL
+    driver = None
+    try:
+        driver= webdriver.Edge(service = edge_driver_service,options = edge_options)
+    
+        driver.get("http://192.168.1.1")  # Replace with the actual login URL
 
-    # Wait for the page to load (you may need to adjust this)
-    time.sleep(3)
-    WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, 'logo_button'))  # Use the correct ID or selector
-        ).click()  # Click the login button
+        # Wait for the page to load (you may need to adjust this)
+        time.sleep(3)
+        WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'logo_button'))  # Use the correct ID or selector
+            ).click()  # Click the login button
 
-        
-    # Wait for the second button to be clickable
-    time.sleep(1)
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(5)
-    WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "connectToInternet"))  # Use the correct ID or selector
-        ).click()  # Click the login button
-    print("Logged in or refreshed.")
-    time.sleep(10)
-    driver.quit()
+            
+        # Wait for the second button to be clickable
+        time.sleep(1)
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(5)
+        WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, "connectToInternet"))  # Use the correct ID or selector
+            ).click()  # Click the login button
+        print("Logged in or refreshed.")
+        time.sleep(10)
+        driver.quit()
+    except Exception as e:
+        print('failed to execute connection {e}')
+    finally:
+        if (driver): driver.quit()
+
+    
     
 
 
@@ -61,8 +70,9 @@ while (True):
             execute_connect()
         except:
             print("FAILED")
-
+        finally:
+            time.sleep(3)
     else:
         print("ALREADY CONNECTED, SLEEPING")
-        time.sleep(2)
+        time.sleep(3)
         
