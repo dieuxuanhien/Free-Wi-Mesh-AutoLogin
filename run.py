@@ -17,9 +17,9 @@ print(edge_driver_path)
 
 # Set up the WebDriver
 edge_options = edgeOptions()
-edge_options.add_argument("--headless=new")
+edge_options.add_argument("--headless")
 edge_options.add_argument("--start-maximized")
-edge_options.add_argument("--disable-gpu")
+
 
 
 def check_internet_connection():
@@ -35,10 +35,10 @@ def execute_connect():
     try:
         driver= webdriver.Edge(service = edge_driver_service,options = edge_options)
     
-        driver.get("http://192.168.1.1")  # Replace with the actual login URL
+        driver.get("http://192.168.0.1")  # Replace with the actual login URL
 
         # Wait for the page to load (you may need to adjust this)
-        time.sleep(3)
+        time.sleep(5)
         WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.ID, 'logo_button'))  # Use the correct ID or selector
             ).click()  # Click the login button
@@ -54,10 +54,12 @@ def execute_connect():
         print("Logged in or refreshed.")
         time.sleep(10)
         driver.quit()
-    except Exception as e:
-        print('failed to execute connection {e}')
-    finally:
+    except:
+        return
+    finally: 
         if (driver): driver.quit()
+
+   
 
     
     
